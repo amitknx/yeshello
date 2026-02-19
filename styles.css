@@ -334,7 +334,7 @@ p {
   line-height: 1.8;
 }
 
-/* ====== TEMPLATES ====== */
+/* ====== APP-THEMED TEMPLATES ====== */
 .template-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -348,36 +348,369 @@ p {
 }
 
 .tpl-card {
-  background: var(--bg-chat);
-  border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px;
+  overflow: hidden;
   transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 
 .tpl-card:hover {
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-.tpl-header {
+/* --- Title bar --- */
+.tpl-app-bar {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 6px;
+  padding: 10px 14px;
+  font-size: 0.75rem;
   font-weight: 600;
-  font-size: 0.9rem;
+}
+
+.tpl-app-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.tpl-app-name {
+  margin-left: 6px;
+  opacity: 0.8;
+}
+
+/* --- Body --- */
+.tpl-app-body {
+  display: flex;
+  gap: 10px;
+  padding: 14px 16px;
+  flex: 1;
+}
+
+.tpl-app-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.tpl-app-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.tpl-app-sender {
+  font-weight: 700;
+  font-size: 0.82rem;
+  margin-bottom: 3px;
+}
+
+.tpl-app-sender span {
+  font-weight: 400;
+  font-size: 0.7rem;
+  opacity: 0.5;
+  margin-left: 6px;
 }
 
 .tpl-msg {
-  background: var(--bg);
-  border-radius: 6px;
-  padding: 12px 14px;
   font-size: 0.85rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 12px;
+  line-height: 1.55;
+  margin-bottom: 0;
 }
 
+.tpl-card .copy-btn {
+  align-self: flex-start;
+  margin: 8px 16px 14px;
+}
+
+/* --- Email fields --- */
+.tpl-email-field {
+  font-size: 0.78rem;
+  padding: 4px 0;
+  opacity: 0.6;
+}
+
+.tpl-email-field span {
+  opacity: 1;
+  font-weight: 500;
+}
+
+/* --- WhatsApp bubble --- */
+.tpl-wa-body {
+  padding: 14px 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tpl-wa-bubble {
+  max-width: 85%;
+  padding: 10px 12px 4px;
+  border-radius: 10px 2px 10px 10px;
+}
+
+.tpl-wa-time {
+  display: block;
+  text-align: right;
+  font-size: 0.65rem;
+  opacity: 0.5;
+  margin-top: 4px;
+  padding-bottom: 2px;
+}
+
+/* =======================
+   PER-APP THEMES
+   ======================= */
+
+/* Slack */
+[data-app="slack"] {
+  background: #1a1d21;
+  border: 1px solid #2c2d31;
+  color: #d1d2d3;
+}
+
+[data-app="slack"] .tpl-app-bar {
+  background: #1a1d21;
+  border-bottom: 1px solid #2c2d31;
+  color: #d1d2d3;
+}
+
+[data-app="slack"] .tpl-app-dot:nth-child(1) {
+  background: #ec6a5e;
+}
+
+[data-app="slack"] .tpl-app-dot:nth-child(2) {
+  background: #f4bf4f;
+}
+
+[data-app="slack"] .tpl-app-dot:nth-child(3) {
+  background: #61c554;
+}
+
+[data-app="slack"] .tpl-app-avatar {
+  background: #611f69;
+  border-radius: 6px;
+}
+
+[data-app="slack"] .tpl-app-sender {
+  color: #e8912d;
+}
+
+[data-app="slack"] .tpl-msg {
+  color: #d1d2d3;
+}
+
+[data-app="slack"] .copy-btn {
+  border-color: #3c3d41;
+  color: #8b8d91;
+}
+
+[data-app="slack"] .copy-btn:hover {
+  border-color: #e8912d;
+  color: #e8912d;
+}
+
+/* Teams */
+[data-app="teams"] {
+  background: #292929;
+  border: 1px solid #3d3d3d;
+  color: #e0e0e0;
+}
+
+[data-app="teams"] .tpl-app-bar {
+  background: #292929;
+  border-bottom: 1px solid #3d3d3d;
+  color: #c8c8c8;
+}
+
+[data-app="teams"] .tpl-app-dot:nth-child(1) {
+  background: #ec6a5e;
+}
+
+[data-app="teams"] .tpl-app-dot:nth-child(2) {
+  background: #f4bf4f;
+}
+
+[data-app="teams"] .tpl-app-dot:nth-child(3) {
+  background: #61c554;
+}
+
+[data-app="teams"] .tpl-app-avatar {
+  background: #505be4;
+  border-radius: 50%;
+}
+
+[data-app="teams"] .tpl-app-sender {
+  color: #e0e0e0;
+}
+
+[data-app="teams"] .tpl-msg {
+  color: #c8c8c8;
+}
+
+[data-app="teams"] .copy-btn {
+  border-color: #4a4a4a;
+  color: #8b8b8b;
+}
+
+[data-app="teams"] .copy-btn:hover {
+  border-color: #505be4;
+  color: #7b83eb;
+}
+
+/* Discord */
+[data-app="discord"] {
+  background: #313338;
+  border: 1px solid #3f4147;
+  color: #dbdee1;
+}
+
+[data-app="discord"] .tpl-app-bar {
+  background: #2b2d31;
+  border-bottom: 1px solid #3f4147;
+  color: #949ba4;
+}
+
+[data-app="discord"] .tpl-app-dot:nth-child(1) {
+  background: #ec6a5e;
+}
+
+[data-app="discord"] .tpl-app-dot:nth-child(2) {
+  background: #f4bf4f;
+}
+
+[data-app="discord"] .tpl-app-dot:nth-child(3) {
+  background: #61c554;
+}
+
+[data-app="discord"] .tpl-app-avatar {
+  background: #5865f2;
+  border-radius: 50%;
+}
+
+[data-app="discord"] .tpl-app-sender {
+  color: #f0b232;
+}
+
+[data-app="discord"] .tpl-msg {
+  color: #dbdee1;
+}
+
+[data-app="discord"] .copy-btn {
+  border-color: #4a4c52;
+  color: #949ba4;
+}
+
+[data-app="discord"] .copy-btn:hover {
+  border-color: #5865f2;
+  color: #7984f5;
+}
+
+/* Email / Gmail */
+[data-app="email"] {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  color: #202124;
+}
+
+[data-app="email"] .tpl-app-bar {
+  background: #f8f9fa;
+  border-bottom: 1px solid #e8eaed;
+  color: #5f6368;
+}
+
+[data-app="email"] .tpl-app-dot:nth-child(1) {
+  background: #ec6a5e;
+}
+
+[data-app="email"] .tpl-app-dot:nth-child(2) {
+  background: #f4bf4f;
+}
+
+[data-app="email"] .tpl-app-dot:nth-child(3) {
+  background: #61c554;
+}
+
+[data-app="email"] .tpl-email-field {
+  color: #5f6368;
+  border-bottom: 1px solid #e8eaed;
+  padding: 6px 0;
+}
+
+[data-app="email"] .tpl-msg {
+  color: #202124;
+  padding-top: 8px;
+}
+
+[data-app="email"] .copy-btn {
+  border-color: #dadce0;
+  color: #5f6368;
+}
+
+[data-app="email"] .copy-btn:hover {
+  border-color: #1a73e8;
+  color: #1a73e8;
+}
+
+/* WhatsApp */
+[data-app="whatsapp"] {
+  background: #0b141a;
+  border: 1px solid #233138;
+  color: #e9edef;
+}
+
+[data-app="whatsapp"] .tpl-app-bar {
+  background: #202c33;
+  border-bottom: 1px solid #233138;
+  color: #e9edef;
+}
+
+[data-app="whatsapp"] .tpl-wa-body {
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h60v60H0z' fill='%230b141a'/%3E%3Cpath d='M30 5c1 0 2 1 2 2s-1 2-2 2-2-1-2-2 1-2 2-2zm15 15c1 0 2 1 2 2s-1 2-2 2-2-1-2-2 1-2 2-2zm-30 0c1 0 2 1 2 2s-1 2-2 2-2-1-2-2 1-2 2-2zm15 15c1 0 2 1 2 2s-1 2-2 2-2-1-2-2 1-2 2-2z' fill='%23111b21' opacity='.3'/%3E%3C/svg%3E");
+}
+
+[data-app="whatsapp"] .tpl-wa-bubble {
+  background: #005c4b;
+}
+
+[data-app="whatsapp"] .tpl-msg {
+  color: #e9edef;
+}
+
+[data-app="whatsapp"] .copy-btn {
+  border-color: #233138;
+  color: #8696a0;
+}
+
+[data-app="whatsapp"] .copy-btn:hover {
+  border-color: #25d366;
+  color: #25d366;
+}
+
+/* Generic */
+[data-app="generic"] {
+  background: var(--bg-chat);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+[data-app="generic"] .tpl-app-bar {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+[data-app="generic"] .tpl-msg {
+  color: var(--text-secondary);
+}
+
+/* --- Copy button base (inside themed cards) --- */
 .copy-btn {
   background: none;
   border: 1px solid var(--border);
@@ -391,14 +724,9 @@ p {
   transition: all 0.2s;
 }
 
-.copy-btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
 .copy-btn.copied {
-  border-color: var(--green);
-  color: var(--green);
+  border-color: var(--green) !important;
+  color: var(--green) !important;
 }
 
 /* ====== TIPS ====== */

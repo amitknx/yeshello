@@ -22,6 +22,7 @@
   <meta property="twitter:description"
     content="Yes, say hello — but include your question. Better chat etiquette for the modern workplace." />
 
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -152,45 +153,108 @@
         <p class="section-desc reveal">Grab one, customize it, send it.</p>
 
         <div class="template-grid">
-          <div class="tpl-card reveal">
-            <div class="tpl-header">💬 Slack</div>
-            <div class="tpl-msg">Hey! 👋 Hope your week's going well. When you get a chance, could you review the PR for
-              the payment module? No rush — just before EOD would be great.</div>
+          <!-- Slack -->
+          <div class="tpl-card reveal" data-app="slack">
+            <div class="tpl-app-bar">
+              <div class="tpl-app-dot"></div>
+              <div class="tpl-app-dot"></div>
+              <div class="tpl-app-dot"></div>
+              <span class="tpl-app-name">Slack — #dev-team</span>
+            </div>
+            <div class="tpl-app-body">
+              <div class="tpl-app-avatar">Y</div>
+              <div class="tpl-app-content">
+                <div class="tpl-app-sender">You <span>11:42 AM</span></div>
+                <div class="tpl-msg">Hey! 👋 Hope your week's going well. When you get a chance, could you review the PR
+                  for the payment module? No rush — just before EOD would be great.</div>
+              </div>
+            </div>
             <button class="copy-btn">Copy</button>
           </div>
 
-          <div class="tpl-card reveal">
-            <div class="tpl-header">🟦 Teams</div>
-            <div class="tpl-msg">Hi there! Quick one — I'm working on the Q1 report and need the latest revenue figures.
-              Could you share the spreadsheet when you have a moment?</div>
+          <!-- Teams -->
+          <div class="tpl-card reveal" data-app="teams">
+            <div class="tpl-app-bar">
+              <div class="tpl-app-dot"></div>
+              <div class="tpl-app-dot"></div>
+              <div class="tpl-app-dot"></div>
+              <span class="tpl-app-name">Microsoft Teams — General</span>
+            </div>
+            <div class="tpl-app-body">
+              <div class="tpl-app-avatar">Y</div>
+              <div class="tpl-app-content">
+                <div class="tpl-app-sender">You <span>2:15 PM</span></div>
+                <div class="tpl-msg">Hi there! Quick one — I'm working on the Q1 report and need the latest revenue
+                  figures. Could you share the spreadsheet when you have a moment?</div>
+              </div>
+            </div>
             <button class="copy-btn">Copy</button>
           </div>
 
-          <div class="tpl-card reveal">
-            <div class="tpl-header">🎮 Discord</div>
-            <div class="tpl-msg">yo! anyone experienced with React Server Components? I'm getting a hydration error on
-              my dashboard page and the docs aren't helping 😅</div>
+          <!-- Discord -->
+          <div class="tpl-card reveal" data-app="discord">
+            <div class="tpl-app-bar">
+              <div class="tpl-app-dot"></div>
+              <div class="tpl-app-dot"></div>
+              <div class="tpl-app-dot"></div>
+              <span class="tpl-app-name">Discord — #help</span>
+            </div>
+            <div class="tpl-app-body">
+              <div class="tpl-app-avatar">Y</div>
+              <div class="tpl-app-content">
+                <div class="tpl-app-sender">You <span>Today at 9:30 PM</span></div>
+                <div class="tpl-msg">yo! anyone experienced with React Server Components? I'm getting a hydration error
+                  on my dashboard page and the docs aren't helping 😅</div>
+              </div>
+            </div>
             <button class="copy-btn">Copy</button>
           </div>
 
-          <div class="tpl-card reveal">
-            <div class="tpl-header">📧 Email</div>
-            <div class="tpl-msg">Hi Alex, hope you're doing well! I'm reaching out about the vendor contract renewal.
-              Could we schedule 15 minutes this week to discuss the updated terms?</div>
+          <!-- Email -->
+          <div class="tpl-card reveal" data-app="email">
+            <div class="tpl-app-bar">
+              <div class="tpl-app-dot"></div>
+              <div class="tpl-app-dot"></div>
+              <div class="tpl-app-dot"></div>
+              <span class="tpl-app-name">Gmail — Compose</span>
+            </div>
+            <div class="tpl-app-body">
+              <div class="tpl-app-content" style="width: 100%;">
+                <div class="tpl-email-field">To: <span>alex@company.com</span></div>
+                <div class="tpl-email-field">Subject: <span>Vendor Contract Renewal</span></div>
+                <div class="tpl-msg">Hi Alex, hope you're doing well! I'm reaching out about the vendor contract
+                  renewal. Could we schedule 15 minutes this week to discuss the updated terms?</div>
+              </div>
+            </div>
             <button class="copy-btn">Copy</button>
           </div>
 
-          <div class="tpl-card reveal">
-            <div class="tpl-header">📱 WhatsApp</div>
-            <div class="tpl-msg">Hey! 😊 Are we still on for the team lunch tomorrow? If so, I'll book the table at that
-              new place on 5th Street. Let me know by tonight!</div>
+          <!-- WhatsApp -->
+          <div class="tpl-card reveal" data-app="whatsapp">
+            <div class="tpl-app-bar">
+              <span class="tpl-app-name">← Team Lunch Group</span>
+            </div>
+            <div class="tpl-app-body tpl-wa-body">
+              <div class="tpl-wa-bubble">
+                <div class="tpl-msg">Hey! 😊 Are we still on for the team lunch tomorrow? If so, I'll book the table at
+                  that new place on 5th Street. Let me know by tonight!</div>
+                <span class="tpl-wa-time">10:24 PM ✓✓</span>
+              </div>
+            </div>
             <button class="copy-btn">Copy</button>
           </div>
 
-          <div class="tpl-card reveal">
-            <div class="tpl-header">✨ Generic</div>
-            <div class="tpl-msg">Hi [Name]! 👋 I had a quick question about [topic]. [Your question here]. No rush —
-              whenever you get a chance. Thanks!</div>
+          <!-- Generic -->
+          <div class="tpl-card reveal" data-app="generic">
+            <div class="tpl-app-bar">
+              <span class="tpl-app-name">✨ Universal Template</span>
+            </div>
+            <div class="tpl-app-body">
+              <div class="tpl-app-content" style="width: 100%;">
+                <div class="tpl-msg">Hi [Name]! 👋 I had a quick question about [topic]. [Your question here]. No rush —
+                  whenever you get a chance. Thanks!</div>
+              </div>
+            </div>
             <button class="copy-btn">Copy</button>
           </div>
         </div>
