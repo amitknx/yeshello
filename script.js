@@ -3,11 +3,127 @@
 // ===========================
 
 document.addEventListener('DOMContentLoaded', () => {
+  initLanguagePicker();
   initScrollReveal();
   initChatAnimations();
   initCopyButtons();
   initShareButtons();
 });
+
+// --- Language Picker ---
+let currentLang = localStorage.getItem('yeshello-lang') || 'en';
+
+function initLanguagePicker() {
+  const toggle = document.getElementById('lang-toggle');
+  const dropdown = document.getElementById('lang-dropdown');
+  if (!toggle || !dropdown) return;
+
+  // Build dropdown items
+  const langs = Object.keys(TRANSLATIONS);
+  dropdown.innerHTML = langs.map((code) => {
+    const t = TRANSLATIONS[code];
+    return `<button class="lang-option" data-lang="${code}">${t.flag} ${t.lang}</button>`;
+  }).join('');
+
+  // Toggle dropdown
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle('open');
+  });
+
+  // Close on outside click
+  document.addEventListener('click', () => dropdown.classList.remove('open'));
+  dropdown.addEventListener('click', (e) => e.stopPropagation());
+
+  // Select language
+  dropdown.querySelectorAll('.lang-option').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.lang;
+      currentLang = lang;
+      localStorage.setItem('yeshello-lang', lang);
+      applyTranslations(lang);
+      dropdown.classList.remove('open');
+    });
+  });
+
+  // Apply saved language
+  applyTranslations(currentLang);
+}
+
+function applyTranslations(lang) {
+  const t = TRANSLATIONS[lang];
+  if (!t) return;
+
+  // update picker button
+  document.getElementById('lang-current-flag').textContent = t.flag;
+  document.getElementById('lang-current-name').textContent = lang.toUpperCase();
+
+  // update html lang
+  document.documentElement.lang = lang;
+
+  // update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) {
+      el.innerHTML = t[key];
+    }
+  });
+
+  // rebuild chat messages
+  rebuildChat('chat-bad-body', t.chat_bad, true);
+  rebuildChat('chat-good-body', t.chat_good, false);
+
+  // rebuild tips
+  rebuildTips(t.tips);
+
+  // highlight active language in dropdown
+  document.querySelectorAll('.lang-option').forEach((btn) => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+}
+
+function rebuildChat(containerId, messages, includeWaiting) {
+  const container = document.getElementById(containerId);
+  if (!container || !messages) return;
+
+  const avatars = ['a', 'b'];
+  let html = '';
+
+  messages.forEach((msg, i) => {
+    const isFirst = msg.sender !== 'Keith';
+    const avatarClass = isFirst ? 'a' : 'b';
+    const letter = isFirst ? 'Y' : 'K';
+
+    html += `<div class="msg visible">
+      <div class="msg-avatar msg-avatar--${avatarClass}">${letter}</div>
+      <div>
+        <div class="msg-name">${msg.sender} <span class="msg-time">${msg.time}</span></div>
+        <div class="msg-text">${msg.text}</div>
+      </div>
+    </div>`;
+
+    // Insert waiting indicator after second message in bad chat
+    if (includeWaiting && i === 1) {
+      const t = TRANSLATIONS[currentLang];
+      html += `<div class="waiting" id="chat-waiting">
+        <span class="waiting-dots"><span></span><span></span><span></span></span>
+        <span data-i18n="chat_waiting">${t.chat_waiting}</span>
+      </div>`;
+    }
+  });
+
+  container.innerHTML = html;
+}
+
+function rebuildTips(tips) {
+  if (!tips) return;
+  tips.forEach((tip, i) => {
+    const titleEl = document.querySelector(`[data-i18n="tip_${i}_title"]`);
+    const descEl = document.querySelector(`[data-i18n="tip_${i}_desc"]`);
+    if (titleEl) titleEl.textContent = tip.title;
+    if (descEl) descEl.textContent = tip.desc;
+  });
+}
 
 // --- Scroll Reveal ---
 function initScrollReveal() {
@@ -62,20 +178,24 @@ function animatePanel(panel, delays) {
 
 // --- Copy to Clipboard ---
 function initCopyButtons() {
-  document.querySelectorAll('.copy-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.tpl-card');
-      const text = card?.querySelector('.tpl-msg')?.textContent?.trim();
-      if (!text) return;
+  // Use event delegation so dynamically updated buttons still work
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.copy-btn');
+    if (!btn) return;
 
-      navigator.clipboard.writeText(text).then(() => {
-        btn.classList.add('copied');
-        btn.textContent = '✓ Copied';
-        setTimeout(() => {
-          btn.classList.remove('copied');
-          btn.textContent = 'Copy';
-        }, 2000);
-      });
+    const card = btn.closest('.tpl-card');
+    const text = card?.querySelector('.tpl-msg')?.textContent?.trim();
+    if (!text) return;
+
+    const t = TRANSLATIONS[currentLang];
+
+    navigator.clipboard.writeText(text).then(() => {
+      btn.classList.add('copied');
+      btn.textContent = t.copied_btn;
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.textContent = t.copy_btn;
+      }, 2000);
     });
   });
 }
@@ -97,9 +217,10 @@ function initShareButtons() {
 
   document.getElementById('share-copy')?.addEventListener('click', (e) => {
     e.preventDefault();
+    const t = TRANSLATIONS[currentLang];
     navigator.clipboard.writeText(url).then(() => {
       e.target.textContent = '✓ Copied!';
-      setTimeout(() => e.target.textContent = 'Copy link', 2000);
+      setTimeout(() => e.target.textContent = t.share_copy, 2000);
     });
   });
 }

@@ -2,6 +2,87 @@
    YesHello.info — Minimal Design
    =========================== */
 
+/* ====== LANGUAGE PICKER ====== */
+.lang-picker {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 100;
+}
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-chat, #fff);
+  border: 1px solid var(--border, #e5e5e5);
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--text, #111);
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.lang-toggle:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.lang-toggle svg {
+  opacity: 0.5;
+}
+
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--bg-chat, #fff);
+  border: 1px solid var(--border, #e5e5e5);
+  border-radius: 10px;
+  padding: 4px;
+  min-width: 160px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+}
+
+.lang-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lang-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--text-secondary, #555);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.lang-option:hover {
+  background: var(--bg, #fafafa);
+  color: var(--text, #111);
+}
+
+.lang-option.active {
+  color: var(--accent, #7c3aed);
+  font-weight: 600;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
